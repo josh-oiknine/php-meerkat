@@ -96,7 +96,11 @@ Class meerkat
     */
     private function makeAPICall($url)
     {
-        return $this->curlGet($url . http_build_query(['v' => $this->version]), ['Authorization' => $this->api_key]);
+        $response = $this->curlGet($url . http_build_query(['v' => $this->version]), ['Authorization' => $this->api_key]);
+
+        if ($response) {
+            return json_decode($response);
+        }
     }
 
     /*
