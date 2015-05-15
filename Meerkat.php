@@ -100,7 +100,7 @@ Class Meerkat
 
         $response = $this->curlGet(
             $url . '?' . http_build_query(['v' => $this->version]),
-            array('Authorization: ' . $this->api_key)
+            ['Authorization: ' . $this->api_key]
         );
 
         if ($response) {
@@ -113,7 +113,7 @@ Class Meerkat
     /*
     *    Make the HTTP GET request
     */
-    private function curlGet($url, $headers=array())
+    private function curlGet($url, $headers=[])
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -134,7 +134,7 @@ Class Meerkat
     /*
     *    Make the HTTP POST request
     */
-    private function curlPost($url, $parameters, $headers=array())
+    private function curlPost($url, $parameters, $headers=[])
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);

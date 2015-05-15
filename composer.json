@@ -1,0 +1,8 @@
+{
+    "name": "joshOiknine/php-meerkat",
+    "description": "An easy-to-use PHP wrapper class for accessing Meerkat's API",
+    "require": {
+        "php": ">=5.4.0",
+        "another-vendor/package": "1.0"
+    }
+}
