@@ -16,20 +16,24 @@ to get one
 
 ### Installation
 
-I strongly advice using [Composer](https://getcomposer.org) to keep updates as smooth as possible.
+I recommend using [Composer](https://getcomposer.org) to keep updates as smooth as possible.
 
-    $ composer require joshOiknine/php-meerkat
+```
+$ composer require joshOiknine/php-meerkat
+```
 
 ### Initialize the class
+```php
+use joshOiknine\Meerkat;
 
-    use joshOiknine\Meerkat;
-
-    $meerkat = new Meerkat('YOUR-API-KEY-HERE');
-
+$meerkat = new Meerkat('YOUR-API-KEY-HERE');
+```
 or w/o Composer
 
-    require_once('Meerkat.php');
+```php
+require_once('Meerkat.php');
 
-    $meerkat = new Meerkat('YOUR-API-KEY-HERE');
+$meerkat = new Meerkat('YOUR-API-KEY-HERE');
+```
 
 *NOT affiliated with Meerkat*
