@@ -1,9 +1,9 @@
 <?php
 
-Class meerkat
+Class Meerkat
 {
     public $version = '1.0';
-    public $base_url = 'http://api.meerkatapp.co/';
+    public $base_url = 'https://api.meerkatapp.co/';
     public $resources_url = 'https://resources.meerkatapp.co/';
     public $channels_url = 'https://channels.meerkatapp.co/';
 
@@ -94,30 +94,38 @@ Class meerkat
     /*
     *    Build the HTTP request
     */
-    private function makeAPICall($url)
+    private function makeAPICall($url=null)
     {
-        $response = $this->curlGet($url . http_build_query(['v' => $this->version]), ['Authorization' => $this->api_key]);
+        if (!$url) return false;
+
+        $response = $this->curlGet(
+            $url . '?' . http_build_query(['v' => $this->version]),
+            array('Authorization: ' . $this->api_key)
+        );
 
         if ($response) {
             return json_decode($response);
         }
+
+        return false;
     }
 
     /*
     *    Make the HTTP GET request
     */
-    private function curlGet($url, $headers=null)
+    private function curlGet($url, $headers=array())
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 
-        if (isset($headers) && is_array($headers)) {
+        if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         $content = curl_exec($ch);
+
         curl_close($ch);
 
         return $content;
@@ -126,7 +134,7 @@ Class meerkat
     /*
     *    Make the HTTP POST request
     */
-    private function curlPost($url, $parameters, $headers=null)
+    private function curlPost($url, $parameters, $headers=array())
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -135,11 +143,12 @@ Class meerkat
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $parameters);
 
-        if (isset($headers) && is_array($headers)) {
+        if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         $content = curl_exec($ch);
+
         curl_close($ch);
 
         return $content;
